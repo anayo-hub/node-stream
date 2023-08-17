@@ -2,17 +2,18 @@ const fs = require("fs/promises");
 
 (async () => {
   console.time("writeTime"); // Start timing
-  const fileHandle = await fs.open("text.txt", "w");
+  const fileHandle = await fs.open("src.txt", "w");
 
   const stream = fileHandle.createWriteStream();
 
   let i = 0;
+  const numOfWrite = 1000000;
 
   const writeMany = () => {
-    while (i < 1000000) {
+    while (i < numOfWrite) {
       const buff = Buffer.from(` ${i} `, "utf-8");
 
-      if (i === 999999) {
+      if (i === numOfWrite - 1) {
         return stream.end(buff);
       }
 
